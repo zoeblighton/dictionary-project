@@ -1,4 +1,5 @@
 import React from "react";
+import Phonetics from "./Phonetics";
 
 function capitalize(text) {
   if (!text) return "";
@@ -16,37 +17,40 @@ export default function Results(props) {
 
   return (
     <div className="Results">
+      {/* Word */}
       <h2 className="word-title">{capitalize(results.word)}</h2>
 
+      {/* PHONETICS (speaker icon lives inside this component) */}
+      <Phonetics phonetics={results.phonetics} />
+
+      {/* MEANINGS */}
       {meaningsToShow.map(function (meaning, index) {
+        const partOfSpeech = meaning.partOfSpeech;
+        const synonyms = meaning.synonyms || [];
+
         return (
           <div key={index} className="Meaning">
-            {/* Part of speech */}
-            {meaning.partOfSpeech && (
-              <h3 className="part-of-speech">
-                {capitalize(meaning.partOfSpeech)}
-              </h3>
+            {partOfSpeech && (
+              <h3 className="part-of-speech">{capitalize(partOfSpeech)}</h3>
             )}
 
-            {/* Definition */}
             {meaning.definition && (
               <p className="definition">{capitalize(meaning.definition)}</p>
             )}
 
-            {/* Example */}
             {meaning.example && (
               <p className="example">“{capitalize(meaning.example)}”</p>
             )}
 
-            {/* Synonyms */}
-            {meaning.synonyms && meaning.synonyms.length > 0 && (
+            {/* SYNONYMS */}
+            {synonyms.length > 0 && (
               <div className="synonyms">
-                <strong>Synonyms:</strong>{" "}
-                {meaning.synonyms.slice(0, 5).map((synonym, i) => (
-                  <span key={i} className="synonym-tag">
-                    {capitalize(synonym)}
-                  </span>
-                ))}
+                <span className="synonyms-label">Synonyms:</span>
+                <ul className="synonyms-list">
+                  {synonyms.slice(0, 5).map(function (synonym, i) {
+                    return <li key={i}>{capitalize(synonym)}</li>;
+                  })}
+                </ul>
               </div>
             )}
           </div>
