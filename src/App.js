@@ -11,7 +11,28 @@ function App() {
         <main>
           <Dictionary />
         </main>
-        <footer className="text-center">Coded by Zoe Blighton</footer>
+        <footer className="text-center">
+          <p>
+            {" "}
+            This project was coded by{" "}
+            <a
+              href="https://github.com/zoeblighton"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Zoe Blighton
+            </a>{" "}
+            and is open-sourced on{" "}
+            <a
+              href="https://app.netlify.com/projects/enchanting-gingersnap-0e85cd/overview"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Netlify
+            </a>
+            .
+          </p>
+        </footer>
       </div>
     </div>
   );

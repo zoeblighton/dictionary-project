@@ -1,53 +1,104 @@
 body {
-  margin: 10px;
-  padding: 20px;
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background: #f7f7f7;
+}
+
+.Dictionary {
   display: flex;
   justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  padding: 20px 20px 80px;
 }
 
-.container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 30px;
-  max-width: 400px;
-}
-
-.header-logo {
-  width: 80px;
-  height: 10px;
-  border: 3px solid #333;
-  padding: 15px;
-  border-radius: 8px;
-  margin: 20px;
+.dictionary-container {
+  width: 100%;
+  max-width: 600px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.06);
+  padding: 24px 24px 28px;
 }
 
 .search-form {
-  width: 100%;
-  border: 3px solid #333;
-  padding: 20px;
-  border-radius: 8px;
   display: flex;
-  flex-direction: column;
-  gap: 15px;
+  gap: 10px;
+  margin-bottom: 20px;
 }
 
-input {
-  padding: 12px;
-  border: 2px solid #ddd;
-  border-radius: 4px;
+.search-input {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
   font-size: 16px;
+  box-sizing: border-box;
+  flex: 1;
 }
 
-button {
+.search-input:focus {
+  outline: none;
+  border-color: #333;
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.06);
+}
+
+.search-button {
   padding: 12px 20px;
   background-color: #333;
   color: white;
   border: none;
-  border-radius: 4px;
+  border-radius: 8px;
   cursor: pointer;
+  font-size: 16px;
+  transition: all 0.15s ease-in-out;
+}
+
+.search-button:hover {
+  background-color: #000;
+}
+
+.search-button:active {
+  transform: scale(0.96);
+}
+
+.Results {
+  margin-top: 10px;
+}
+
+.word-title {
+  font-size: 28px;
+  margin: 0 0 10px;
+  text-align: left;
+}
+
+.Meaning {
+  padding: 14px 0;
+  border-top: 1px solid #eee;
+}
+
+.Meaning:first-of-type {
+  border-top: none;
+}
+
+.part-of-speech {
   font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #888;
+  margin: 0 0 4px;
+}
+
+.definition {
+  margin: 0 0 6px;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #222;
+}
+
+.example {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #555;
+  font-style: italic;
 }
