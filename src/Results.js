@@ -19,20 +19,35 @@ export default function Results(props) {
       <h2 className="word-title">{capitalize(results.word)}</h2>
 
       {meaningsToShow.map(function (meaning, index) {
-        const partOfSpeech = meaning.partOfSpeech;
-
         return (
           <div key={index} className="Meaning">
-            {partOfSpeech && (
-              <h3 className="part-of-speech">{capitalize(partOfSpeech)}</h3>
+            {/* Part of speech */}
+            {meaning.partOfSpeech && (
+              <h3 className="part-of-speech">
+                {capitalize(meaning.partOfSpeech)}
+              </h3>
             )}
 
+            {/* Definition */}
             {meaning.definition && (
               <p className="definition">{capitalize(meaning.definition)}</p>
             )}
 
+            {/* Example */}
             {meaning.example && (
               <p className="example">“{capitalize(meaning.example)}”</p>
+            )}
+
+            {/* Synonyms */}
+            {meaning.synonyms && meaning.synonyms.length > 0 && (
+              <div className="synonyms">
+                <strong>Synonyms:</strong>{" "}
+                {meaning.synonyms.slice(0, 5).map((synonym, i) => (
+                  <span key={i} className="synonym-tag">
+                    {capitalize(synonym)}
+                  </span>
+                ))}
+              </div>
             )}
           </div>
         );
