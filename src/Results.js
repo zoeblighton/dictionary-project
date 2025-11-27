@@ -20,8 +20,8 @@ export default function Results(props) {
       {/* Word */}
       <h2 className="word-title">{capitalize(results.word)}</h2>
 
-      {/* PHONETICS (speaker icon lives inside this component) */}
-      <Phonetics phonetics={results.phonetics} />
+      {/* PHONETICS – pass both the string and any array if it exists */}
+      <Phonetics phonetic={results.phonetic} phonetics={results.phonetics} />
 
       {/* MEANINGS */}
       {meaningsToShow.map(function (meaning, index) {
