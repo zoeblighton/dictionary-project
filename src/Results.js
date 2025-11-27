@@ -6,9 +6,7 @@ function capitalize(text) {
   return text.charAt(0).toUpperCase() + text.slice(1);
 }
 
-export default function Results(props) {
-  const results = props.results;
-
+export default function Results({ results, photos }) {
   if (!results || !results.meanings) {
     return null;
   }
@@ -17,14 +15,14 @@ export default function Results(props) {
 
   return (
     <div className="Results">
-      {/* Word */}
+      {/* WORD */}
       <h2 className="word-title">{capitalize(results.word)}</h2>
 
-      {/* PHONETICS – pass both the string and any array if it exists */}
-      <Phonetics phonetic={results.phonetic} phonetics={results.phonetics} />
+      {/* PHONETICS */}
+      <Phonetics phonetics={results.phonetics || results.phonetic} />
 
       {/* MEANINGS */}
-      {meaningsToShow.map(function (meaning, index) {
+      {meaningsToShow.map((meaning, index) => {
         const partOfSpeech = meaning.partOfSpeech;
         const synonyms = meaning.synonyms || [];
 
@@ -47,15 +45,29 @@ export default function Results(props) {
               <div className="synonyms">
                 <span className="synonyms-label">Synonyms:</span>
                 <ul className="synonyms-list">
-                  {synonyms.slice(0, 5).map(function (synonym, i) {
-                    return <li key={i}>{capitalize(synonym)}</li>;
-                  })}
+                  {synonyms.slice(0, 5).map((synonym, i) => (
+                    <li key={i}>{capitalize(synonym)}</li>
+                  ))}
                 </ul>
               </div>
             )}
           </div>
         );
       })}
+
+      {/* IMAGES AT THE BOTTOM */}
+      {photos.length > 0 && (
+        <div className="photo-gallery">
+          {photos.slice(0, 6).map((photo, index) => (
+            <img
+              key={index}
+              src={photo.src.landscape}
+              alt={photo.alt}
+              className="result-photo"
+            />
+          ))}
+        </div>
+      )}
     </div>
   );
 }
