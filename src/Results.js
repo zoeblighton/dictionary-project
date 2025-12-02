@@ -1,3 +1,4 @@
+// src/Results.js
 import React from "react";
 import Phonetics from "./Phonetics";
 
@@ -15,13 +16,10 @@ export default function Results({ results, photos }) {
 
   return (
     <div className="Results">
-      {/* WORD */}
       <h2 className="word-title">{capitalize(results.word)}</h2>
 
-      {/* PHONETICS */}
-      <Phonetics phonetics={results.phonetics || results.phonetic} />
+      <Phonetics phonetic={results.phonetic} phonetics={results.phonetics} />
 
-      {/* MEANINGS */}
       {meaningsToShow.map((meaning, index) => {
         const partOfSpeech = meaning.partOfSpeech;
         const synonyms = meaning.synonyms || [];
@@ -40,7 +38,6 @@ export default function Results({ results, photos }) {
               <p className="example">“{capitalize(meaning.example)}”</p>
             )}
 
-            {/* SYNONYMS */}
             {synonyms.length > 0 && (
               <div className="synonyms">
                 <span className="synonyms-label">Synonyms:</span>
@@ -55,15 +52,19 @@ export default function Results({ results, photos }) {
         );
       })}
 
-      {/* IMAGES AT THE BOTTOM */}
-      {photos.length > 0 && (
+      {photos && photos.length > 0 && (
         <div className="photo-gallery">
-          {photos.slice(0, 6).map((photo, index) => (
+          {photos.map((photo) => (
             <img
-              key={index}
-              src={photo.src.landscape}
-              alt={photo.alt}
+              key={photo.id}
               className="result-photo"
+              src={
+                photo.src?.landscape ||
+                photo.src?.large ||
+                photo.src?.tiny ||
+                ""
+              }
+              alt={results.word}
             />
           ))}
         </div>

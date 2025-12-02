@@ -1,36 +1,43 @@
 import React from "react";
 
 export default function Phonetics(props) {
-  const phonetics = props.phonetics || [];
+  const phoneticsArray = props.phonetics || [];
+  const firstFromArray = phoneticsArray.length > 0 ? phoneticsArray[0] : {};
 
-  if (!phonetics.length) {
+  const text = props.phonetic || firstFromArray.text || "";
+  const audioUrl = firstFromArray.audio || "";
+
+  if (!text && !audioUrl) {
     return null;
   }
 
-  const first = phonetics[0];
-  const text = first.text;
-  const audioUrl = first.audio;
-
   function playAudio() {
-    if (!audioUrl) return;
-    const audio = new Audio(audioUrl);
-    audio.play();
+    if (audioUrl) {
+      const audio = new Audio(audioUrl);
+      audio.play();
+    } else if (
+      text &&
+      typeof window !== "undefined" &&
+      "speechSynthesis" in window
+    ) {
+      const utterance = new SpeechSynthesisUtterance(text);
+      window.speechSynthesis.cancel();
+      window.speechSynthesis.speak(utterance);
+    }
   }
 
   return (
     <div className="phonetics">
       {text && <span className="phonetic-text">{text}</span>}
 
-      {audioUrl && (
-        <button
-          type="button"
-          className="phonetic-button"
-          onClick={playAudio}
-          aria-label="Play pronunciation"
-        >
-          🔊
-        </button>
-      )}
+      <button
+        type="button"
+        className="phonetic-button"
+        onClick={playAudio}
+        aria-label="Play pronunciation"
+      >
+        🔊
+      </button>
     </div>
   );
 }

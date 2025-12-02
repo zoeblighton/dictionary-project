@@ -8,8 +8,7 @@ let apiKey = "ad330884483abf7o091c0c43t8ea93ab";
 export default function Dictionary() {
   let [keyword, setKeyword] = useState("");
   let [results, setResults] = useState(null);
-  let [photos, setPhotos] = useState([]); // <-- NEW
-
+  let [photos, setPhotos] = useState([]);
   function handleDictionaryResponse(response) {
     console.log("DICT:", response.data);
     setResults(response.data);
@@ -17,17 +16,15 @@ export default function Dictionary() {
 
   function handleImageResponse(response) {
     console.log("IMAGES:", response.data.photos);
-    setPhotos(response.data.photos); // <-- SAVE IMAGES
+    setPhotos(response.data.photos);
   }
 
   function search(event) {
     event.preventDefault();
 
-    // DICTIONARY API
     let apiUrl = `https://api.shecodes.io/dictionary/v1/define?word=${keyword}&key=${apiKey}`;
     axios.get(apiUrl).then(handleDictionaryResponse);
 
-    // IMAGE API
     let imageUrl = `https://api.shecodes.io/images/v1/search?query=${keyword}&key=${apiKey}`;
     axios.get(imageUrl).then(handleImageResponse);
   }
@@ -51,7 +48,7 @@ export default function Dictionary() {
             Search
           </button>
         </form>
-        <Results results={results} photos={photos} /> {/* SEND PHOTOS */}
+        <Results results={results} photos={photos} />
       </div>
     </div>
   );
